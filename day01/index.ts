@@ -6,7 +6,12 @@ interface Test {
 }
 
 const readInput = (filename = "input.txt") =>
-  fs.readFileSync(filename).toString().trim().split("\n");
+  fs
+    .readFileSync(filename)
+    .toString()
+    .trim()
+    .split("\n")
+    .filter((s) => s.length);
 
 const input = readInput();
 const part = process.env.part || "part1";

@@ -13,23 +13,24 @@ const isPrime = (n: number) => {
 };
 
 export const solve = (input: string[], isPartTwo: boolean): string => {
+  const numbers = input.map((s) => parseInt(s, 10));
+  let increases = 0;
   if (!isPartTwo) {
-    return input
-      .map((n) => parseInt(n, 10))
-      .map((n, index) => (isPrime(n) ? n * index : 0))
-      .reduce((acc, curr) => acc + curr)
-      .toString();
+    for (let i = 1; i < numbers.length; i++) {
+      if (numbers[i] > numbers[i - 1]) {
+        increases++;
+      }
+    }
+    return increases.toString();
   } else {
-    return input
-      .map((n) => parseInt(n, 10))
-      .map((n, index) => {
-        if (!isPrime(n)) {
-          return index % 2 === 0 ? n : -n;
-        } else {
-          return 0;
-        }
-      })
-      .reduce((acc, curr) => acc + curr)
-      .toString();
+    let sum = numbers[0] + numbers[1] + numbers[2];
+    for (let i = 3; i < numbers.length; i++) {
+      const newSum = numbers[i] + numbers[i - 1] + numbers[i - 2];
+      if (newSum > sum) {
+        increases++;
+      }
+      sum = newSum;
+    }
+    return increases.toString();
   }
 };
