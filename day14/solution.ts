@@ -26,7 +26,8 @@ export const solve = (input: string[], isPartTwo: boolean): string => {
     add(pairs, lc + rc, 1);
   }
 
-  for (let i = 0; i < 40; i++) {
+  const steps = !isPartTwo ? 10 : 40;
+  for (let i = 0; i < steps; i++) {
     const nextPairs: Record<string, number> = {};
     for (const p of Object.keys(pairs)) {
       const insertion = rules[p];
