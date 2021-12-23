@@ -1,5 +1,5 @@
 FROM node:17-slim
-COPY ../day18 .
+COPY . .
 RUN yarn install
 RUN yarn tsc
 
