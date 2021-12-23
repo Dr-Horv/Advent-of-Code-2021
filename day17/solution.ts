@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 const toKey = (x: number, y: number) => `${x},${y}`;
 
 const simulateShot = (
@@ -54,25 +52,29 @@ export const solve = (input: string[], isPartTwo: boolean): string => {
       targetArea.add(toKey(x, y));
     }
   }
-  //console.log(x1, x2, y1, y2, minX, maxX, minY, maxY);
   const missed = (x: number, y: number) => x > maxX || y < minY;
 
-  //console.log(simulateShot(17, -4, targetArea, missed));
-
-  let maxYFound = -9999999;
-  for (let x = 0; x < maxX; x++) {
+  let valueSearchedFor = !isPartTwo ? -9999999 : 0;
+  for (let x = 0; x <= maxX; x++) {
+    const currMaxX = maxValueFromVelocity(x);
+    if (currMaxX < minX) {
+      continue;
+    }
     for (let y = minY; y < 10_000; y++) {
       const currMaxY = maxValueFromVelocity(y);
-
-      if (currMaxY > maxYFound) {
-        //console.log("trying", toKey(x, y), currMaxY, maxYFound);
+      if (!isPartTwo) {
+        if (currMaxY > valueSearchedFor) {
+          if (simulateShot(x, y, targetArea, missed)) {
+            valueSearchedFor = currMaxY;
+          }
+        }
+      } else {
         if (simulateShot(x, y, targetArea, missed)) {
-          //console.log("hit");
-          maxYFound = currMaxY;
+          valueSearchedFor++;
         }
       }
     }
   }
 
-  return maxYFound.toString();
+  return valueSearchedFor.toString();
 };
