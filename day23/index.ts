@@ -5,9 +5,7 @@ const readInput = (filename = "input.txt") =>
   fs
     .readFileSync(filename)
     .toString()
-    .trim()
     .split("\n")
-    .map((s) => s.trim())
     .filter((s) => s.length);
 
 const input = readInput();
