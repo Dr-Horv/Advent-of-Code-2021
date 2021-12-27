@@ -229,6 +229,9 @@ const isRoomValidFor = (roomNumber: number, occupancy: Occupancy) => {
   return podToRoomLookup[occupancy] === roomNumber;
 };
 
+/**
+ * Shamelessly stolen from https://www.reddit.com/r/adventofcode/comments/rnjkzi/comment/hpt32ja/?utm_source=share&utm_medium=web2x&context=3
+ */
 const getMoves = (s: State): Move[] => {
   const moves: Move[] = [];
   range(0, 4)
